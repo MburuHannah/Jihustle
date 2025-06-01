@@ -1,130 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Farmers Project - View Tender</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f7f7f7;
-      color: #333;
-    }
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .container {
-      max-width: 900px;
-      margin: 30px auto;
-      background: #fff;
-      padding: 25px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #4CAF50;
-    }
-    section {
-      margin-bottom: 30px;
-    }
-    .documents a {
-      display: block;
-      margin: 5px 0;
-      color: #1a73e8;
-      text-decoration: none;
-    }
-    .documents a:hover {
-      text-decoration: underline;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    .contact-info, .financial-info, .eligibility, .how-to-apply {
-      background: #f1f1f1;
-      padding: 15px;
-      border-radius: 5px;
-    }
-    .apply-button {
-      display: inline-block;
-      background: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-top: 10px;
-    }
-    .apply-button:hover {
-      background: #45a049;
-    }
-  </style>
-</head>
-<body>
+import React from 'react';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { Divider } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-<header>
-  <h1>🌾 Farmers Project - View Tender</h1>
-</header>
+const TenderDetailsScreen = () => {
+  const handleDocumentDownload = (filename) => {
+    // Replace with actual document URL logic
+    Linking.openURL(`https://yourserver.com/docs/${filename}`);
+  };
 
-<div class="container">
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>🌾 Farmers Project - Tender Details</Text>
 
-  <section>
-    <h2>📝 Tender Details</h2>
-    <p><strong>Tender Title:</strong> Supply of Organic Fertilizers to Community Farms – Zone A</p>
-    <p><strong>Tender ID:</strong> FP-TND-2025-0012</p>
-    <p><strong>Published Date:</strong> 01/06/2025</p>
-    <p><strong>Closing Date:</strong> 15/06/2025</p>
-    <p><strong>Category:</strong> Fertilizer</p>
-    <p><strong>Description:</strong></p>
-    <ul>
-      <li>Supply organic fertilizers to 500 farmers in Zone A</li>
-      <li>Must meet specified quality standards</li>
-      <li>Delivery required within 30 days of contract signing</li>
-      <li>Scope includes packaging, transport, and distribution</li>
-    </ul>
-  </section>
+      {/* Tender Info */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Tender Title:</Text>
+        <Text style={styles.content}>Supply of Organic Fertilizers to Community Farms – Zone A</Text>
 
-  <section class="documents">
-    <h2>📂 Tender Documents</h2>
-    <a href="#">Terms of Reference (ToR).pdf</a>
-    <a href="#">Tender Form.docx</a>
-    <a href="#">Technical Specifications.xlsx</a>
-  </section>
+        <Text style={styles.label}>Tender ID:</Text>
+        <Text style={styles.content}>FP-TND-2025-0012</Text>
 
-  <section class="financial-info">
-    <h2>💰 Financial Information</h2>
-    <p><strong>Estimated Budget:</strong> USD 50,000</p>
-    <p><strong>Funding Source:</strong> NGO</p>
-    <p><strong>Payment Terms:</strong> 50% advance, 50% on delivery</p>
-  </section>
+        <Text style={styles.label}>Published Date:</Text>
+        <Text style={styles.content}>01/06/2025</Text>
 
-  <section class="eligibility">
-    <h2>📋 Eligibility Criteria</h2>
-    <ul>
-      <li>Registered supplier with valid license</li>
-      <li>Minimum 3 years experience in similar projects</li>
-      <li>References from past work</li>
-      <li>Local presence preferred</li>
-    </ul>
-  </section>
+        <Text style={styles.label}>Closing Date:</Text>
+        <Text style={styles.content}>15/06/2025</Text>
 
-  <section class="how-to-apply">
-    <h2>✅ How to Apply</h2>
-    <p><strong>Submission Deadline:</strong> 15/06/2025 – 17:00 (Local Time)</p>
-    <p><strong>Submission Method:</strong> Submit all documents to <a href="mailto:procurement@farmersproject.org">procurement@farmersproject.org</a> or deliver to the Procurement Office, Farmers House, Block A, Main Road.</p>
-    <a class="apply-button" href="#">Apply Now</a>
-  </section>
+        <Text style={styles.label}>Category:</Text>
+        <Text style={styles.content}>Fertilizer</Text>
 
-  <section class="contact-info">
-    <h2>📞 Contact Information</h2>
-    <p><strong>Procurement Officer:</strong> Mr. John Okello</p>
-    <p><strong>Phone:</strong> +123 456 789</p>
-    <p><strong>Email:</strong> <a href="mailto:tenders@farmersproject.org">tenders@farmersproject.org</a></p>
-  </section>
+        <Text style={styles.label}>Tender Description:</Text>
+        <Text style={styles.content}>
+          - Purpose: Supply organic fertilizers{'\n'}
+          - Scope: Deliver to 500 farmers in Zone A{'\n'}
+          - Quantity: 10 tons, high-quality certified{'\n'}
+          - Delivery: Within 30 days of contract award
+        </Text>
+      </View>
 
-</div>
+      {/* Documents */}
+      <Divider />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>📂 Tender Documents</Text>
+        {['ToR.pdf', 'Tender_Form.docx', 'Tech_Specs.xlsx'].map(doc => (
+          <TouchableOpacity key={doc} onPress={() => handleDocumentDownload(doc)}>
+            <Text style={styles.link}>• {doc}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
-</body>
-</html>
+      {/* Financial Info */}
+      <Divider />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>💰 Financial Information</Text>
+        <Text>• Estimated Budget: USD 25,000</Text>
+        <Text>• Funding Source: NGO</Text>
+        <Text>• Payment Terms: 50% advance, 50% on delivery</Text>
+      </View>
+
+      {/* Eligibility */}
+      <Divider />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>📋 Eligibility Criteria</Text>
+        <Text>• Valid supplier license</Text>
+        <Text>• 3+ years in similar projects</Text>
+        <Text>• References from past clients</Text>
+        <Text>• Local presence preferred</Text>
+      </View>
+
+      {/* How to Apply */}
+      <Divider />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>✅ How to Apply</Text>
+        <Text>Submission Deadline: 15/06/2025 – 17:00</Text>
+        <Text>
+          Submit all documents via email to{' '}
+          <Text style={styles.link} onPress={() => Linking.openURL('mailto:procurement@farmersproject.org')}>
+            procurement@farmersproject.org
+          </Text>
+        </Text>
+      </View>
+
+      {/* Contact */}
+      <Divider />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>📞 Contact Information</Text>
+        <Text>• Procurement Officer: Mr. John Okello</Text>
+        <Text>• Phone: +123 456 789</Text>
+        <Text
+          style={styles.link}
+          onPress={() => Linking.openURL('mailto:tenders@farmersproject.org')}
+        >
+          • Email: tenders@farmersproject.org
+        </Text>
+      </View>
+
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#2a5934',
+  },
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginVertical: 8,
+    color: '#3a3a3a',
+  },
+  label: {
+    fontWeight: 'bold',
+    marginTop: 8,
+  },
+  content: {
+    marginBottom: 4,
+    fontSize: 15,
+  },
+  link: {
+    color: '#1e90ff',
+    textDecorationLine: 'underline',
+    marginVertical: 4,
+  },
+});
+
+export default TenderDetailsScreen;
